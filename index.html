@@ -7,7 +7,10 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-image: url('images/stardewbackground.png'); /* 设置背景图片 */
+      background-size: cover; /* 让背景图片覆盖整个页面 */
+      background-position: center; /* 背景居中 */
+      background-repeat: no-repeat; /* 禁止背景重复 */
       margin: 0;
       padding: 50px 0;
       display: flex;
@@ -29,7 +32,7 @@
       background-color: transparent;
       box-shadow: none;
       position: absolute;
-      top: -15px;  /* 上移5像素，之前是-10px */
+      top: -15px;
       left: -60px;
       image-rendering: pixelated;
     }
