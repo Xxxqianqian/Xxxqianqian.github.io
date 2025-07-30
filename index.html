@@ -37,6 +37,8 @@
       margin-right: 15px;
       flex-shrink: 0;
       display: block;
+      transition: opacity 0.3s ease; /* 轮播切换时淡入淡出效果 */
+      opacity: 1;
     }
     .text {
       flex: 1;
@@ -66,12 +68,17 @@
       let currentIndex = 0;
       const imgElement = document.getElementById("catImg");
 
+      // 使用淡出淡入切换，让切换更平滑且不会影响文字
       function changeImageSequential(){
-        currentIndex = (currentIndex + 1) % images.length;
-        imgElement.src = images[currentIndex];
+        imgElement.style.opacity = 0; // 先淡出
+        setTimeout(() => {
+          currentIndex = (currentIndex + 1) % images.length;
+          imgElement.src = images[currentIndex]; // 只换图片src
+          imgElement.style.opacity = 1; // 淡入
+        }, 300); // 300ms淡出时间
       }
 
-      setInterval(changeImageSequential, 1000); // 1秒轮播一次
+      setInterval(changeImageSequential, 1000); // 1秒切换一次
     })();
   </script>
 </body>
