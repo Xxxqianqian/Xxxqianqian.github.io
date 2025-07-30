@@ -22,23 +22,22 @@
     .container {
       display: flex;
       align-items: center;
-      justify-content: flex-start; /* 靠左一点 */
+      justify-content: flex-start;
       max-width: 300px;
       width: 100%;
     }
     #catImg {
       width: 120px;
-      height: auto;
+      height: 120px; /* 固定高度，避免布局跳动 */
+      object-fit: contain;
       border-radius: 15px;
       background-color: transparent !important;
-      box-shadow: none; /* 关闭阴影 */
+      box-shadow: none;
       image-rendering: crisp-edges;
       image-rendering: pixelated;
       margin-right: 15px;
       flex-shrink: 0;
       display: block;
-      transition: opacity 0.3s ease; /* 轮播切换时淡入淡出效果 */
-      opacity: 1;
     }
     .text {
       flex: 1;
@@ -68,17 +67,18 @@
       let currentIndex = 0;
       const imgElement = document.getElementById("catImg");
 
-      // 使用淡出淡入切换，让切换更平滑且不会影响文字
-      function changeImageSequential(){
-        imgElement.style.opacity = 0; // 先淡出
-        setTimeout(() => {
-          currentIndex = (currentIndex + 1) % images.length;
-          imgElement.src = images[currentIndex]; // 只换图片src
-          imgElement.style.opacity = 1; // 淡入
-        }, 300); // 300ms淡出时间
+      // 预加载图片
+      images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+
+      function changeImageInstant(){
+        currentIndex = (currentIndex + 1) % images.length;
+        imgElement.src = images[currentIndex];
       }
 
-      setInterval(changeImageSequential, 1000); // 1秒切换一次
+      setInterval(changeImageInstant, 5000); // 5秒切换一次
     })();
   </script>
 </body>
