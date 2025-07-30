@@ -12,10 +12,12 @@
       background-color: #f4f4f9;
     }
     img {
-      width: 300px;
+      width: 250px;  /* 调整为合适尺寸 */
       height: auto;
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
     }
   </style>
 </head>
@@ -32,24 +34,15 @@
       "images/cat3.png"
     ];
 
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
-
     let currentIndex = 0;
+    const imgElement = document.getElementById("catImg");
 
-    function changeImageRandom() {
-      let nextIndex = getRandomInt(images.length);
-      // 保证下一张不和当前相同
-      while (nextIndex === currentIndex) {
-        nextIndex = getRandomInt(images.length);
-      }
-      currentIndex = nextIndex;
-      document.getElementById("catImg").src = images[currentIndex];
+    function changeImageSequential() {
+      currentIndex = (currentIndex + 1) % images.length;
+      imgElement.src = images[currentIndex];
     }
 
-    // 每隔1秒切换一次图片
-    setInterval(changeImageRandom, 1000);
+    setInterval(changeImageSequential, 2000); // 2秒切换一次
   </script>
 </body>
 </html>
