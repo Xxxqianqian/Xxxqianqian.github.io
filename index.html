@@ -16,9 +16,9 @@
       color: #333;
     }
     h1 {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; /* 使用flex布局 */
+      align-items: center; /* 垂直居中 */
+      justify-content: center; /* 水平居中 */
       font-size: 30px;
       position: relative; /* 使小猫图片放置在标题旁边 */
     }
@@ -30,8 +30,15 @@
       box-shadow: none;
       position: absolute; /* 绝对定位 */
       top: -15px; /* 上移15像素 */
-      left: -60px; /* 右移10像素 */
+      left: -60px; /* 右移10像素（之前的-70px + 10px） */
       image-rendering: pixelated; /* 保持像素化效果 */
+    }
+    .text {
+      flex: 1;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.4;
+      margin-left: 70px; /* 文字与小猫保持间距 */
     }
   </style>
 </head>
@@ -40,6 +47,10 @@
     <img id="catImg" src="images/sleep/cat1.png" alt="小猫图片" />
     Xxxqianqian的主页
   </h1>
+
+  <div class="container">
+    <div class="text"></div>
+  </div>
 
   <script>
     // 动作组定义（只包括sleep文件夹）
@@ -51,12 +62,13 @@
     };
 
     const catImg = document.getElementById("catImg");
+    let currentAction = "sleep"; // 默认从“sleep”开始
     let currentIndex = 0;
     let intervalId = null;
 
     // 动画播放函数
-    function startAction() {
-      const frames = actions.sleep;
+    function startAction(actionName) {
+      const frames = actions[actionName];
       currentIndex = 0;
 
       // 播放sleep动画
@@ -67,7 +79,7 @@
     }
 
     // 页面加载时自动开始播放动画
-    window.onload = startAction;
+    window.onload = startAction("sleep");
   </script>
 </body>
 </html>
