@@ -19,6 +19,7 @@
       max-width: 300px;
       text-align: center;
       margin-bottom: 20px;
+      position: relative;
     }
     .container {
       display: flex;
@@ -28,17 +29,18 @@
       position: relative;
     }
     #catImg {
-      width: 120px;
-      height: 120px;
+      width: 80px;  /* 缩小图片 */
+      height: 80px; /* 缩小图片 */
       object-fit: contain;
       background-color: transparent;
       box-shadow: none;
       margin-right: 15px;
       flex-shrink: 0;
       display: block;
-      position: absolute; /* 用绝对定位 */
-      top: 0; /* 初始位置 */
-      transition: top 0.3s ease; /* 动画过渡效果 */
+      position: absolute;
+      top: 0;
+      left: 0; /* 确保小猫在页面左边 */
+      transition: top 0.3s ease;
       image-rendering: pixelated; /* 保持像素化效果 */
     }
     .text {
@@ -47,16 +49,8 @@
       font-size: 18px;
       line-height: 1.4;
       position: relative;
-      top: 150px; /* 调整文字的位置 */
-    }
-    .buttons {
-      margin-top: 20px;
-    }
-    .buttons button {
-      margin: 0 10px;
-      padding: 6px 12px;
-      font-size: 14px;
-      cursor: pointer;
+      top: 150px;
+      margin-left: 100px; /* 使文字和小猫保持间隔 */
     }
   </style>
 </head>
@@ -65,10 +59,7 @@
 
   <div class="container">
     <img id="catImg" src="images/walk/cat1.png" alt="小猫图片" />
-    <div class="text">
-      <p>通信工程应届毕业生</p>
-      <p>目标岗位：运维工程师 / 软件测试工程师</p>
-    </div>
+    <div class="text"></div>
   </div>
 
   <script>
@@ -78,7 +69,8 @@
         "images/walk/cat1.png",
         "images/walk/cat2.png",
         "images/walk/cat3.png",
-        "images/walk/cat4.png"
+        "images/walk/cat4.png",
+        "images/walk/cat5.png"
       ],
       grooming: [
         "images/grooming/cat1.png",
@@ -109,8 +101,8 @@
 
     // 启动动画函数
     function startAnimation() {
-      currentAction = getRandomAction(); // 随机选择一个动作开始
-      startAction(currentAction); // 播放该动作动画
+      currentAction = "walk"; // 默认从“走路”开始
+      startAction(currentAction);
     }
 
     // 动画播放函数
@@ -122,15 +114,22 @@
       // 步骤1: 播放walk动画，并每3秒走5个像素
       if (actionName === "walk") {
         intervalId = setInterval(() => {
+          // 判断走到文字附件时停止walk并随机切换动作
           if (topPosition < window.innerHeight - catImg.height) {
             topPosition += 5; // 每次向下走5像素
             catImg.style.top = topPosition + "px";
             catImg.src = frames[currentIndex];
             currentIndex = (currentIndex + 1) % frames.length;
           } else {
-            // 走到页面底部停止walk，开始随机切换到其他动作
+            // 走到页面底部停止walk，开始随机切换动作
             clearInterval(intervalId);
             startAnimation();
+          }
+
+          // 判断走到文字附近时立即切换动作
+          if (topPosition > 100) {
+            clearInterval(intervalId); // 停止walk动画
+            startAction(getRandomAction()); // 随机切换到其他动画
           }
         }, 3000); // 每3秒换一张图片
       }
