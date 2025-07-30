@@ -70,7 +70,7 @@
       const frames = actions.sleep;
       currentIndex = 0;
 
-      // 播放sleep动画
+      // 播放sleep动画，持续循环
       intervalId = setInterval(() => {
         catImg.src = frames[currentIndex];
         currentIndex = (currentIndex + 1) % frames.length;
