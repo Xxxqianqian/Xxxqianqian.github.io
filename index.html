@@ -20,6 +20,7 @@
       text-align: center;
       margin-bottom: 20px;
       position: relative;
+      font-size: 30px; /* 修改为更适合的文字大小 */
     }
     .container {
       display: flex;
@@ -58,20 +59,13 @@
   <h1>Xxxqianqian的主页</h1>
 
   <div class="container">
-    <img id="catImg" src="images/walk/cat1.png" alt="小猫图片" />
+    <img id="catImg" src="images/grooming/cat1.png" alt="小猫图片" />
     <div class="text"></div>
   </div>
 
   <script>
-    // 动作组定义
+    // 动作组定义（不再包括walk）
     const actions = {
-      walk: [
-        "images/walk/cat1.png",
-        "images/walk/cat2.png",
-        "images/walk/cat3.png",
-        "images/walk/cat4.png",
-        "images/walk/cat5.png"
-      ],
       grooming: [
         "images/grooming/cat1.png",
         "images/grooming/cat2.png",
@@ -88,11 +82,10 @@
     };
 
     const catImg = document.getElementById("catImg");
-    let currentAction = "walk"; // 默认从“走路”开始
+    let currentAction = "grooming"; // 默认从“grooming”开始
     let currentIndex = 0;
-    let topPosition = 0; // 初始位置
     let intervalId = null;
-    let actionOrder = ["walk", "grooming", "sleep", "sit"]; // 动作顺序
+    let actionOrder = ["grooming", "sleep", "sit"]; // 动作顺序
     actionOrder = shuffleArray(actionOrder); // 打乱顺序
 
     // 随机选择动作
@@ -120,22 +113,40 @@
     function startAction(actionName) {
       const frames = actions[actionName];
       currentIndex = 0;
-      topPosition = 0; // 重置位置
 
-      // 播放当前动作的图片，每1秒切换
-      intervalId = setInterval(() => {
-        catImg.src = frames[currentIndex];
-        currentIndex = (currentIndex + 1) % frames.length;
-        
-        // 如果动作播放完，切换到下一个动作
-        if (currentIndex === 0) {
-          const nextActionIndex = actionOrder.indexOf(actionName) + 1;
-          if (nextActionIndex < actionOrder.length) {
-            clearInterval(intervalId); // 停止当前动作
-            startAction(actionOrder[nextActionIndex]); // 开始下一个动作
+      // 如果是sleep动作，重复播放10秒
+      if (actionName === "sleep") {
+        let sleepCount = 0;
+        intervalId = setInterval(() => {
+          catImg.src = frames[currentIndex];
+          currentIndex = (currentIndex + 1) % frames.length;
+          sleepCount++;
+
+          // 10秒后停止播放sleep动作，开始下一个动作
+          if (sleepCount >= 10) {
+            clearInterval(intervalId);
+            const nextActionIndex = actionOrder.indexOf(actionName) + 1;
+            if (nextActionIndex < actionOrder.length) {
+              startAction(actionOrder[nextActionIndex]); // 开始下一个动作
+            }
           }
-        }
-      }, 1000); // 每1秒换一张图片
+        }, 1000); // 每1秒换一张图片
+      } else {
+        // 普通动画播放
+        intervalId = setInterval(() => {
+          catImg.src = frames[currentIndex];
+          currentIndex = (currentIndex + 1) % frames.length;
+
+          // 如果动作播放完，切换到下一个动作
+          if (currentIndex === 0) {
+            const nextActionIndex = actionOrder.indexOf(actionName) + 1;
+            if (nextActionIndex < actionOrder.length) {
+              clearInterval(intervalId); // 停止当前动作
+              startAction(actionOrder[nextActionIndex]); // 开始下一个动作
+            }
+          }
+        }, 1000); // 每1秒换一张图片
+      }
     }
 
     // 页面加载时自动开始播放动画
