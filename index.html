@@ -16,29 +16,29 @@
       color: #333;
     }
     h1 {
-      display: flex; /* 使用flex布局 */
-      align-items: center; /* 垂直居中 */
-      justify-content: center; /* 水平居中 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 30px;
-      position: relative; /* 使小猫图片放置在标题旁边 */
+      position: relative;
     }
     #catImg {
-      width: 60px;  /* 小猫缩小一倍，设置为60px */
-      height: 60px; /* 保持与宽度一致 */
-      object-fit: contain; /* 确保图片按比例显示 */
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
       background-color: transparent;
       box-shadow: none;
-      position: absolute; /* 绝对定位 */
-      top: -10px; /* 上移10像素 */
-      left: -60px; /* 右移10像素 */
-      image-rendering: pixelated; /* 保持像素化效果 */
+      position: absolute;
+      top: -10px;
+      left: -60px;
+      image-rendering: pixelated;
     }
     .text {
       flex: 1;
       text-align: left;
       font-size: 18px;
       line-height: 1.4;
-      margin-left: 70px; /* 文字与小猫保持间距 */
+      margin-left: 70px;
     }
   </style>
 </head>
@@ -53,7 +53,6 @@
   </div>
 
   <script>
-    // 动作组定义（只包括sleep文件夹）
     const actions = {
       sleep: [
         "images/sleep/cat1.png",
@@ -65,19 +64,16 @@
     let currentIndex = 0;
     let intervalId = null;
 
-    // 动画播放函数
     function startAction() {
       const frames = actions.sleep;
       currentIndex = 0;
 
-      // 播放sleep动画，持续循环
       intervalId = setInterval(() => {
         catImg.src = frames[currentIndex];
         currentIndex = (currentIndex + 1) % frames.length;
-      }, 1000); // 每1秒换一张图片
+      }, 1000);
     }
 
-    // 页面加载时自动开始播放动画
     window.onload = startAction;
   </script>
 </body>
