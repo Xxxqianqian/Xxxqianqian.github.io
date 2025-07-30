@@ -8,9 +8,11 @@
     body {
       font-family: Arial, sans-serif;
       background-image: url('images/stardewbackground.png'); /* 设置背景图片 */
-      background-size: cover; /* 让背景图片覆盖整个页面 */
+      background-size: cover; /* 背景图片完全覆盖整个页面 */
       background-position: center; /* 背景居中 */
       background-repeat: no-repeat; /* 禁止背景重复 */
+      background-attachment: fixed; /* 背景固定，不随滚动 */
+      height: 100vh; /* 视窗高度，确保背景图覆盖整个视窗 */
       margin: 0;
       padding: 50px 0;
       display: flex;
