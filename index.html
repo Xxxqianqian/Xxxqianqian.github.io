@@ -23,14 +23,14 @@
       position: relative; /* 使小猫图片放置在标题旁边 */
     }
     #catImg {
-      width: 120px;  /* 放大小猫图片 */
-      height: 120px; /* 保持与宽度一致 */
+      width: 60px;  /* 小猫缩小一倍，设置为60px */
+      height: 60px; /* 保持与宽度一致 */
       object-fit: contain; /* 确保图片按比例显示 */
       background-color: transparent;
       box-shadow: none;
       position: absolute; /* 绝对定位 */
-      top: -15px; /* 上移15像素 */
-      left: -60px; /* 右移10像素（之前的-70px + 10px） */
+      top: 0; /* 对齐顶部 */
+      left: -70px; /* 小猫左移70个像素 */
       image-rendering: pixelated; /* 保持像素化效果 */
     }
     .text {
@@ -62,13 +62,12 @@
     };
 
     const catImg = document.getElementById("catImg");
-    let currentAction = "sleep"; // 默认从“sleep”开始
     let currentIndex = 0;
     let intervalId = null;
 
     // 动画播放函数
-    function startAction(actionName) {
-      const frames = actions[actionName];
+    function startAction() {
+      const frames = actions.sleep;
       currentIndex = 0;
 
       // 播放sleep动画
@@ -79,7 +78,7 @@
     }
 
     // 页面加载时自动开始播放动画
-    window.onload = startAction("sleep");
+    window.onload = startAction;
   </script>
 </body>
 </html>
