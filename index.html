@@ -3,43 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>动态小猫轮播</title>
+  <title>动态小猫轮播 - 透明底效果</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9;
+      background-color: #f4f4f9; /* 纯色背景 */
       margin: 50px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
     h1, p {
-      max-width: 300px; /* 限制文字最大宽度 */
+      max-width: 300px;
       margin: 0 0 10px 0;
       text-align: center;
+      color: #333;
     }
     .container {
       display: flex;
       align-items: center;
       justify-content: center;
-      max-width: 300px; /* 容器宽度和文字一样 */
+      max-width: 300px;
       width: 100%;
     }
     #catImg {
-      width: 120px; /* 图片宽度缩小，和文字宽度差不多 */
+      width: 120px;
       height: auto;
       border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      box-shadow: 0 0 15px rgba(0,0,0,0.2); /* 阴影更淡，更自然 */
       image-rendering: crisp-edges;
       image-rendering: pixelated;
-      margin-right: 15px; /* 图片和文字间距 */
+      margin-right: 15px;
       flex-shrink: 0;
+      background: transparent; /* 确保图片容器无背景色 */
     }
     .text {
       flex: 1;
       text-align: left;
       font-size: 18px;
       line-height: 1.4;
+      color: #444;
     }
   </style>
 </head>
@@ -61,14 +64,4 @@
     ];
 
     let currentIndex = 0;
-    const imgElement = document.getElementById("catImg");
-
-    function changeImageSequential() {
-      currentIndex = (currentIndex + 1) % images.length;
-      imgElement.src = images[currentIndex];
-    }
-
-    setInterval(changeImageSequential, 2000); // 2秒切换一次
-  </script>
-</body>
-</html>
+    const imgElement = docume
