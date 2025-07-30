@@ -23,21 +23,21 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      max-width: 300px;
+      max-width: 400px;
       width: 100%;
     }
     #catImg {
       width: 120px;
-      height: 120px; /* 固定高度，避免布局跳动 */
+      height: 120px;
       object-fit: contain;
-      border-radius: 15px;
-      background-color: transparent !important;
+      background-color: transparent;
       box-shadow: none;
-      image-rendering: crisp-edges;
-      image-rendering: pixelated;
       margin-right: 15px;
       flex-shrink: 0;
       display: block;
+      position: absolute; /* 用绝对定位 */
+      top: 0; /* 初始位置 */
+      transition: top 0.3s ease; /* 动画过渡效果 */
     }
     .text {
       flex: 1;
@@ -45,41 +45,112 @@
       font-size: 18px;
       line-height: 1.4;
     }
+    .buttons {
+      margin-top: 20px;
+    }
+    .buttons button {
+      margin: 0 10px;
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <h1>Xxxqianqian的主页</h1>
+
   <div class="container">
-    <img id="catImg" src="images/cat1.png" alt="小猫图片" />
+    <img id="catImg" src="images/walk/cat1.png" alt="小猫图片" />
     <div class="text">
       <p>通信工程应届毕业生</p>
       <p>目标岗位：运维工程师 / 软件测试工程师</p>
     </div>
   </div>
 
+  <div class="buttons">
+    <button onclick="startAnimation()">开始动画</button>
+  </div>
+
   <script>
-    (function(){
-      const images = [
-        "images/cat1.png",
-        "images/cat2.png",
-        "images/cat3.png"
-      ];
-      let currentIndex = 0;
-      const imgElement = document.getElementById("catImg");
+    // 动作组定义
+    const actions = {
+      walk: [
+        "images/walk/cat1.png",
+        "images/walk/cat2.png",
+        "images/walk/cat3.png",
+        "images/walk/cat4.png"
+      ],
+      grooming: [
+        "images/grooming/cat1.png",
+        "images/grooming/cat2.png",
+        "images/grooming/cat3.png"
+      ],
+      sleep: [
+        "images/sleep/cat1.png",
+        "images/sleep/cat2.png"
+      ],
+      sit: [
+        "images/sit/cat1.png",
+        "images/sit/cat2.png"
+      ]
+    };
 
-      // 预加载图片
-      images.forEach(src => {
-        const img = new Image();
-        img.src = src;
-      });
+    const catImg = document.getElementById("catImg");
 
-      function changeImageInstant(){
-        currentIndex = (currentIndex + 1) % images.length;
-        imgElement.src = images[currentIndex];
+    let currentAction = "walk"; // 默认从“走路”开始
+    let currentIndex = 0;
+    let topPosition = 0; // 初始位置
+    let intervalId = null;
+
+    // 启动动画函数
+    function startAnimation() {
+      startAction("walk"); // 从“走路”动画开始
+    }
+
+    // 动画播放函数
+    function startAction(actionName) {
+      const frames = actions[actionName];
+      currentIndex = 0;
+      topPosition = 0; // 重置位置
+
+      // 步骤1: 先播放walk动画，并每3秒走5个像素
+      if (actionName === "walk") {
+        intervalId = setInterval(() => {
+          if (topPosition < window.innerHeight - catImg.height) {
+            topPosition += 5; // 每次向下走5像素
+            catImg.style.top = topPosition + "px";
+            catImg.src = frames[currentIndex];
+            currentIndex = (currentIndex + 1) % frames.length;
+          } else {
+            // 走到页面底部停止walk，开始grooming
+            clearInterval(intervalId);
+            startAction("grooming");
+          }
+        }, 3000); // 每3秒换一张图片
       }
+      // 步骤2: 播放grooming动画
+      else if (actionName === "grooming") {
+        intervalId = setInterval(() => {
+          catImg.src = frames[currentIndex];
+          currentIndex = (currentIndex + 1) % frames.length;
+        }, 1000); // 每1秒换一张图片
+      }
+      // 步骤3: 播放sleep动画
+      else if (actionName === "sleep") {
+        intervalId = setInterval(() => {
+          catImg.src = frames[currentIndex];
+          currentIndex = (currentIndex + 1) % frames.length;
+        }, 1000); // 每1秒换一张图片
+      }
+      // 步骤4: 播放sit动画
+      else if (actionName === "sit") {
+        intervalId = setInterval(() => {
+          catImg.src = frames[currentIndex];
+          currentIndex = (currentIndex + 1) % frames.length;
+        }, 1000); // 每1秒换一张图片
+      }
+    }
 
-      setInterval(changeImageInstant, 5000); // 5秒切换一次
-    })();
   </script>
 </body>
 </html>
