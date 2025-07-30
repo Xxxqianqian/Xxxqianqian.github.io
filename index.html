@@ -23,16 +23,15 @@
       position: relative; /* 使小猫图片放置在标题旁边 */
     }
     #catImg {
-      width: 120px;  /* 放大小猫图片 */
-      height: 120px; /* 保持与宽度一致 */
+      width: 60px;  /* 小猫缩小一倍，设置为60px */
+      height: 60px; /* 保持与宽度一致 */
       object-fit: contain; /* 确保图片按比例显示 */
       background-color: transparent;
       box-shadow: none;
       position: absolute; /* 绝对定位 */
       top: -10px; /* 上移10像素 */
-      left: -70px; /* 小猫左移70个像素 */
+      left: -60px; /* 右移10像素 */
       image-rendering: pixelated; /* 保持像素化效果 */
-      image-rendering: -webkit-optimize-contrast; /* 对比度优化 */
     }
     .text {
       flex: 1;
