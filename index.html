@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>动态小猫轮播 - 透明底效果</title>
+  <title>Xxxqianqian的主页</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9; /* 纯色背景 */
+      background-color: #f4f4f9;
       margin: 50px 0;
       display: flex;
       flex-direction: column;
@@ -30,12 +30,12 @@
       width: 120px;
       height: auto;
       border-radius: 15px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2); /* 阴影更淡，更自然 */
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       image-rendering: crisp-edges;
       image-rendering: pixelated;
       margin-right: 15px;
       flex-shrink: 0;
-      background: transparent; /* 确保图片容器无背景色 */
+      background: transparent;
     }
     .text {
       flex: 1;
@@ -57,11 +57,22 @@
   </div>
 
   <script>
-    const images = [
-      "images/cat1.png",
-      "images/cat2.png",
-      "images/cat3.png"
-    ];
+    (function() {
+      const images = [
+        "images/cat1.png",
+        "images/cat2.png",
+        "images/cat3.png"
+      ];
+      let currentIndex = 0;
+      const imgElement = document.getElementById("catImg");
 
-    let currentIndex = 0;
-    const imgElement = docume
+      function changeImageSequential() {
+        currentIndex = (currentIndex + 1) % images.length;
+        imgElement.src = images[currentIndex];
+      }
+
+      setInterval(changeImageSequential, 2000);
+    })();
+  </script>
+</body>
+</html>
