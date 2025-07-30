@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Xxxqianqian的主页ovo</title>
+  <title>Xxxqianqian的主页</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f9; /* 网页背景色 */
+      background-color: #f4f4f9;
       margin: 50px 0;
       display: flex;
       flex-direction: column;
@@ -22,7 +22,7 @@
     .container {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start; /* 靠左一点 */
       max-width: 300px;
       width: 100%;
     }
@@ -30,9 +30,8 @@
       width: 120px;
       height: auto;
       border-radius: 15px;
-      /* 取消任何背景色，确保透明 */
       background-color: transparent !important;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      box-shadow: none; /* 关闭阴影 */
       image-rendering: crisp-edges;
       image-rendering: pixelated;
       margin-right: 15px;
@@ -48,10 +47,11 @@
   </style>
 </head>
 <body>
-  <h1>通信工程应届毕业生</h1>
+  <h1>Xxxqianqian的主页</h1>
   <div class="container">
     <img id="catImg" src="images/cat1.png" alt="小猫图片" />
     <div class="text">
+      <p>通信工程应届毕业生</p>
       <p>目标岗位：运维工程师 / 软件测试工程师</p>
     </div>
   </div>
