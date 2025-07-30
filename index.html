@@ -31,7 +31,7 @@
     #catImg {
       width: 80px;  /* 缩小图片 */
       height: 80px; /* 缩小图片 */
-      object-fit: contain;
+      object-fit: none; /* 防止图片被压缩或拉伸 */
       background-color: transparent;
       box-shadow: none;
       margin-right: 15px;
@@ -111,27 +111,34 @@
       currentIndex = 0;
       topPosition = 0; // 重置位置
 
-      // 步骤1: 播放walk动画，并每3秒走5个像素
+      // 步骤1: 播放walk动画，并每2秒走5个像素，除了cat1、cat3、cat5
       if (actionName === "walk") {
         intervalId = setInterval(() => {
-          // 判断走到文字附件时停止walk并随机切换动作
-          if (topPosition < window.innerHeight - catImg.height) {
-            topPosition += 5; // 每次向下走5像素
-            catImg.style.top = topPosition + "px";
-            catImg.src = frames[currentIndex];
-            currentIndex = (currentIndex + 1) % frames.length;
+          // 判断当前是哪个图片，若是 cat1、cat3、cat5，保持位置不变
+          const currentImage = frames[currentIndex];
+          if (currentImage === "images/walk/cat1.png" || currentImage === "images/walk/cat3.png" || currentImage === "images/walk/cat5.png") {
+            // 不改变位置，直接换图片
+            catImg.src = currentImage;
           } else {
-            // 走到页面底部停止walk，开始随机切换动作
-            clearInterval(intervalId);
-            startAnimation();
+            // 走动
+            if (topPosition < window.innerHeight - catImg.height) {
+              topPosition += 5; // 每次向下走5像素
+              catImg.style.top = topPosition + "px";
+              catImg.src = currentImage;
+            } else {
+              // 走到页面底部停止walk，开始随机切换动作
+              clearInterval(intervalId);
+              startAnimation();
+            }
           }
+          currentIndex = (currentIndex + 1) % frames.length;
 
           // 判断走到文字附近时立即切换动作
           if (topPosition > 100) {
             clearInterval(intervalId); // 停止walk动画
             startAction(getRandomAction()); // 随机切换到其他动画
           }
-        }, 3000); // 每3秒换一张图片
+        }, 2000); // 每2秒换一张图片
       }
       // 步骤2: 播放grooming动画
       else if (actionName === "grooming") {
