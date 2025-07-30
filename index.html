@@ -16,23 +16,20 @@
       color: #333;
     }
     h1 {
-      max-width: 300px;
-      text-align: center;
-      margin-bottom: 20px;
-      font-size: 30px;
-      display: flex;
+      display: flex; /* 使用flex布局 */
       align-items: center; /* 垂直居中 */
       justify-content: center; /* 水平居中 */
-      position: relative;
+      font-size: 30px;
+      position: relative; /* 使小猫图片放置在标题旁边 */
     }
     #catImg {
-      width: 120px;  /* 缩小为原来的0.5倍 */
-      height: 120px; /* 保持与宽度一致 */
+      width: 60px;  /* 缩小为原来的0.5倍 */
+      height: 60px; /* 保持与宽度一致 */
       object-fit: contain; /* 确保图片按比例显示 */
       background-color: transparent;
       box-shadow: none;
-      position: absolute;
-      top: 0;
+      position: absolute; /* 绝对定位 */
+      top: 0; /* 对齐顶部 */
       left: -5px; /* 小猫与文字保持5个像素间距 */
       image-rendering: pixelated; /* 保持像素化效果 */
     }
@@ -41,8 +38,7 @@
       text-align: left;
       font-size: 18px;
       line-height: 1.4;
-      position: relative;
-      margin-left: 120px; /* 文字与小猫保持间距 */
+      margin-left: 70px; /* 文字与小猫保持间距 */
     }
   </style>
 </head>
