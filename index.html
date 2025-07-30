@@ -1,81 +1,55 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎来到 Xxxqianqian 的主页</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f9;
-      }
-      header {
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        padding: 50px 0;
-      }
-      h1 {
-        font-size: 36px;
-        margin-bottom: 10px;
-      }
-      p {
-        font-size: 20px;
-        margin-bottom: 30px;
-      }
-      section {
-        padding: 20px;
-        text-align: center;
-      }
-      footer {
-        background-color: #333;
-        color: #fff;
-        text-align: center;
-        padding: 10px;
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-      }
-      ul {
-        list-style-type: none;
-        padding: 0;
-      }
-      ul li {
-        font-size: 18px;
-        margin-bottom: 10px;
-      }
-      a {
-        color: #00aced;
-        text-decoration: none;
-      }
-      a:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>你好，我是 Xxxqianqian 👋</h1>
-      <p>通信工程应届毕业生，目标岗位：运维工程师 / 软件测试工程师</p>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>动态小猫轮播</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f9;
+    }
+    img {
+      width: 300px;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <h1>通信工程应届毕业生</h1>
+  <p>目标岗位：运维工程师 / 软件测试工程师</p>
 
-    <section>
-      <h2>我的技能与技术栈</h2>
-      <ul>
-        <li>Linux (CentOS)</li>
-        <li>Shell 编程</li>
-        <li>GitPython</li>
-        <li>Jenkins</li>
-        <li>自动化测试</li>
-        <li>系统优化与故障排查</li>
-        <li>数据分析与可视化</li>
-      </ul>
-    </section>
+  <img id="catImg" src="images/cat1.png" alt="小猫图片" />
 
-    <footer>
-      <p>联系我: <a href="mailto:3170744348@qq.com">3170744348@qq.com</a></p>
-    </footer>
-  </body>
+  <script>
+    const images = [
+      "images/cat1.png",
+      "images/cat2.png",
+      "images/cat3.png"
+    ];
+
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+
+    let currentIndex = 0;
+
+    function changeImageRandom() {
+      let nextIndex = getRandomInt(images.length);
+      // 保证下一张不和当前相同
+      while (nextIndex === currentIndex) {
+        nextIndex = getRandomInt(images.length);
+      }
+      currentIndex = nextIndex;
+      document.getElementById("catImg").src = images[currentIndex];
+    }
+
+    // 每隔1秒切换一次图片
+    setInterval(changeImageRandom, 1000);
+  </script>
+</body>
 </html>
