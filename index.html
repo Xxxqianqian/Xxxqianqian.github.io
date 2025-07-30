@@ -7,25 +7,51 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
       background-color: #f4f4f9;
+      margin: 50px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
-    img {
-      width: 250px;  /* 调整为合适尺寸 */
+    h1, p {
+      max-width: 300px; /* 限制文字最大宽度 */
+      margin: 0 0 10px 0;
+      text-align: center;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 300px; /* 容器宽度和文字一样 */
+      width: 100%;
+    }
+    #catImg {
+      width: 120px; /* 图片宽度缩小，和文字宽度差不多 */
       height: auto;
       border-radius: 15px;
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
       image-rendering: crisp-edges;
       image-rendering: pixelated;
+      margin-right: 15px; /* 图片和文字间距 */
+      flex-shrink: 0;
+    }
+    .text {
+      flex: 1;
+      text-align: left;
+      font-size: 18px;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
   <h1>通信工程应届毕业生</h1>
-  <p>目标岗位：运维工程师 / 软件测试工程师</p>
 
-  <img id="catImg" src="images/cat1.png" alt="小猫图片" />
+  <div class="container">
+    <img id="catImg" src="images/cat1.png" alt="小猫图片" />
+    <div class="text">
+      <p>目标岗位：运维工程师 / 软件测试工程师</p>
+    </div>
+  </div>
 
   <script>
     const images = [
