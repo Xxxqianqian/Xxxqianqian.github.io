@@ -29,8 +29,8 @@
       position: relative;
     }
     #catImg {
-      width: 80px;  /* 缩小图片 */
-      height: 80px; /* 缩小图片 */
+      width: 120px;  /* 增大图片 */
+      height: 120px; /* 增大图片 */
       object-fit: none; /* 防止图片被压缩或拉伸 */
       background-color: transparent;
       box-shadow: none;
@@ -99,19 +99,50 @@
       return actionKeys[Math.floor(Math.random() * actionKeys.length)];
     }
 
+    // 随机在walk中插入cat2、cat4
+    function getWalkFrames() {
+      let frames = [
+        "images/walk/cat1.png",
+        "images/walk/cat2.png",
+        "images/walk/cat3.png",
+        "images/walk/cat4.png",
+        "images/walk/cat5.png"
+      ];
+      
+      let walkFrames = [];
+
+      for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * 3); // 随机选择 cat1, cat3, cat5
+        if (randomIndex === 0) {
+          walkFrames.push("images/walk/cat1.png");
+        } else if (randomIndex === 1) {
+          walkFrames.push("images/walk/cat3.png");
+        } else {
+          walkFrames.push("images/walk/cat5.png");
+        }
+
+        // 每隔一张随机插入 cat2 或 cat4
+        if (Math.random() < 0.5) {
+          walkFrames.push(Math.random() < 0.5 ? "images/walk/cat2.png" : "images/walk/cat4.png");
+        }
+      }
+      
+      return walkFrames;
+    }
+
     // 启动动画函数
     function startAnimation() {
-      currentAction = "walk"; // 默认从“走路”开始
-      startAction(currentAction);
+      const randomAction = getRandomAction(); // 获取随机动作
+      startAction(randomAction); // 启动随机动作
     }
 
     // 动画播放函数
     function startAction(actionName) {
-      const frames = actions[actionName];
+      const frames = actionName === "walk" ? getWalkFrames() : actions[actionName];
       currentIndex = 0;
       topPosition = 0; // 重置位置
 
-      // 步骤1: 播放walk动画，并每2秒走5个像素，除了cat1、cat3、cat5
+      // 步骤1: 播放walk动画，并每1秒走5个像素，除了cat1、cat3、cat5
       if (actionName === "walk") {
         intervalId = setInterval(() => {
           // 判断当前是哪个图片，若是 cat1、cat3、cat5，保持位置不变
@@ -138,7 +169,7 @@
             clearInterval(intervalId); // 停止walk动画
             startAction(getRandomAction()); // 随机切换到其他动画
           }
-        }, 2000); // 每2秒换一张图片
+        }, 1000); // 每1秒换一张图片
       }
       // 步骤2: 播放grooming动画
       else if (actionName === "grooming") {
