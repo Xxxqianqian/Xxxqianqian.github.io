@@ -8,7 +8,8 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f4f9;
-      margin: 50px 0;
+      margin: 0;
+      padding: 50px 0;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -23,8 +24,8 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      max-width: 400px;
       width: 100%;
+      position: relative;
     }
     #catImg {
       width: 120px;
@@ -38,12 +39,15 @@
       position: absolute; /* 用绝对定位 */
       top: 0; /* 初始位置 */
       transition: top 0.3s ease; /* 动画过渡效果 */
+      image-rendering: pixelated; /* 保持像素化效果 */
     }
     .text {
       flex: 1;
       text-align: left;
       font-size: 18px;
       line-height: 1.4;
+      position: relative;
+      top: 150px; /* 调整文字的位置 */
     }
     .buttons {
       margin-top: 20px;
@@ -65,10 +69,6 @@
       <p>通信工程应届毕业生</p>
       <p>目标岗位：运维工程师 / 软件测试工程师</p>
     </div>
-  </div>
-
-  <div class="buttons">
-    <button onclick="startAnimation()">开始动画</button>
   </div>
 
   <script>
@@ -96,15 +96,21 @@
     };
 
     const catImg = document.getElementById("catImg");
-
     let currentAction = "walk"; // 默认从“走路”开始
     let currentIndex = 0;
     let topPosition = 0; // 初始位置
     let intervalId = null;
 
+    // 随机选择动作
+    function getRandomAction() {
+      const actionKeys = Object.keys(actions);
+      return actionKeys[Math.floor(Math.random() * actionKeys.length)];
+    }
+
     // 启动动画函数
     function startAnimation() {
-      startAction("walk"); // 从“走路”动画开始
+      currentAction = getRandomAction(); // 随机选择一个动作开始
+      startAction(currentAction); // 播放该动作动画
     }
 
     // 动画播放函数
@@ -113,7 +119,7 @@
       currentIndex = 0;
       topPosition = 0; // 重置位置
 
-      // 步骤1: 先播放walk动画，并每3秒走5个像素
+      // 步骤1: 播放walk动画，并每3秒走5个像素
       if (actionName === "walk") {
         intervalId = setInterval(() => {
           if (topPosition < window.innerHeight - catImg.height) {
@@ -122,9 +128,9 @@
             catImg.src = frames[currentIndex];
             currentIndex = (currentIndex + 1) % frames.length;
           } else {
-            // 走到页面底部停止walk，开始grooming
+            // 走到页面底部停止walk，开始随机切换到其他动作
             clearInterval(intervalId);
-            startAction("grooming");
+            startAnimation();
           }
         }, 3000); // 每3秒换一张图片
       }
@@ -151,6 +157,8 @@
       }
     }
 
+    // 页面加载时自动开始播放动画
+    window.onload = startAnimation;
   </script>
 </body>
 </html>
